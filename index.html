@@ -2,9 +2,57 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>EN LA CIUDAD</title>
+  <title>ABIKOKE</title>
   <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text&display=swap" rel="stylesheet">
   <style>
+    .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-contenido {
+  background: #e0e0e0;
+  color: #111;
+  padding: 30px 40px;
+  border-radius: 12px;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.modal-contenido h2 {
+  margin-top: 0;
+  color: #444;
+  font-size: 1.8em;
+}
+
+.modal-contenido p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.modal-contenido button {
+  background: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.modal-contenido button:hover {
+  background: #555;
+}
+
     body {
       font-family: 'Wix Madefor Text', Arial, sans-serif;
       margin: 0;
@@ -71,7 +119,7 @@
   </style>
 </head>
 <body>
-  <h1>DONDE CABEN LOS PERROS</h1>
+  <h1>EN LA CIUDAD</h1>
   <div class="galeria">
     <img src="https://i.imgur.com/UVPdcfb.jpeg" alt="Imagen 1" onclick="openLightbox(this.src)">
     <img src="https://i.imgur.com/SKi63lz.jpeg" alt="Imagen 2" onclick="openLightbox(this.src)">
@@ -104,7 +152,15 @@
     <a href="#" class="close">&times;</a>
     <img id="lightbox-img" src="">
   </div>
+<script>
+  window.onload = function () {
+    document.getElementById("bienvenida").style.display = "flex";
+  };
 
+  function cerrarModal() {
+    document.getElementById("bienvenida").style.display = "none";
+  }
+</script>
   <script>
     function openLightbox(src) {
       document.getElementById("lightbox-img").src = src;
@@ -115,5 +171,13 @@
       document.getElementById("lightbox").style.display = "none";
     }
   </script>
+<div id="bienvenida" class="modal">
+  <div class="modal-contenido">
+    <h2>invitaciao</h2>
+    <p>lorem ipsum o ipsum lore lo q sea</p>
+    <button onclick="cerrarModal()">Entrar</button>
+  </div>
+</div>
+
 </body>
 </html>
