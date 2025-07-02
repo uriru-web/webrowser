@@ -5,54 +5,6 @@
   <title>ABIKOKE</title>
   <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text&display=swap" rel="stylesheet">
   <style>
-    .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(30, 30, 30, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-
-.modal-contenido {
-  background: #e0e0e0;
-  color: #111;
-  padding: 30px 40px;
-  border-radius: 12px;
-  max-width: 500px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
-}
-
-.modal-contenido h2 {
-  margin-top: 0;
-  color: #444;
-  font-size: 1.8em;
-}
-
-.modal-contenido p {
-  font-size: 1.1em;
-  margin-bottom: 20px;
-}
-
-.modal-contenido button {
-  background: #333;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1em;
-}
-
-.modal-contenido button:hover {
-  background: #555;
-}
-
     body {
       font-family: 'Wix Madefor Text', Arial, sans-serif;
       margin: 0;
@@ -60,6 +12,7 @@
       background: #000;
       text-align: center;
       color: white;
+      overflow-x: hidden;
     }
 
     h1 {
@@ -75,109 +28,223 @@
       justify-content: center;
       padding: 20px;
       gap: 20px;
+      position: relative;
     }
 
     .galeria img {
       width: 250px;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
+      transition: all 1.6s cubic-bezier(0.65, 0, 0.35, 1);
       cursor: pointer;
     }
 
-    .galeria img:hover {
-      transform: scale(1.05);
+    .img-apilada {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3) rotate(10deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.img-liberada {
+  position: static;
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.modal.visible {
+  opacity: 1;
+}
+
+.modal-contenido {
+  background: #f1f1f1;
+  color: #111;
+  padding: 25px 30px;
+  border-radius: 14px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  animation: aparecer 1.2s ease;
+}
+
+@keyframes aparecer {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+    .modal-contenido h2 {
+      margin-top: 0;
+      color: #444;
+      font-size: 1.8em;
     }
 
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
-      justify-content: center;
-      align-items: center;
+    .modal-contenido p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
     }
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-    }
-
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 40px;
+    .modal-contenido button {
+      background: #333;
       color: white;
-      text-decoration: none;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
     }
+
+    .modal-contenido button:hover {
+      background: #555;
+    }
+    #lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
   </style>
 </head>
 <body>
+
   <h1>EN LA CIUDAD</h1>
+
   <div class="galeria">
-    <img src="https://i.imgur.com/UVPdcfb.jpeg" alt="Imagen 1" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/SKi63lz.jpeg" alt="Imagen 2" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/nrkBBfa.jpeg" alt="Imagen 3" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/QzJlqaj.jpeg" alt="Imagen 4" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/JkkDyQt.jpeg" alt="Imagen 5" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/rJ4nfcT.jpeg" alt="Imagen 6" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/SQgZ7LR.jpeg" alt="Imagen 7" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/zTNdemz.jpeg" alt="Imagen 8" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/9IbMQfQ.jpeg" alt="Imagen 9" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/pIG6EM2.jpeg" alt="Imagen 10" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/HBbO7K2.jpeg" alt="Imagen 11" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/KjrtW9E.jpeg" alt="Imagen 12" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/GZ3UsMm.jpeg" alt="Imagen 13" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/JCk7rzJ.jpeg" alt="Imagen 14" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/gDBa6F4.jpeg" alt="Imagen 15" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/Gtemq4t.jpeg" alt="Imagen 16" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/4FeMBGP.jpeg" alt="Imagen 17" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/5ERHhi9.jpeg" alt="Imagen 18" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/F1hmhX9.jpeg" alt="Imagen 19" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/gSNmqsX.jpeg" alt="Imagen 20" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/eTvOPa6.jpeg" alt="Imagen 21" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/98ICguU.jpeg" alt="Imagen 22" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/rw6H1bM.png" alt="Imagen 23" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/7lNy72j.jpeg" alt="Imagen 24" onclick="openLightbox(this.src)">
-    <img src="https://i.imgur.com/fUbQVg1.jpeg" alt="Imagen 25" onclick="openLightbox(this.src)">
+    <img class="img-apilada" src="https://i.imgur.com/UVPdcfb.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/SKi63lz.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/nrkBBfa.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/QzJlqaj.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/JkkDyQt.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/rJ4nfcT.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/SQgZ7LR.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/zTNdemz.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/9IbMQfQ.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/pIG6EM2.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/HBbO7K2.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/KjrtW9E.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/GZ3UsMm.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/JCk7rzJ.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/gDBa6F4.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/Gtemq4t.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/4FeMBGP.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/5ERHhi9.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/F1hmhX9.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/gSNmqsX.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/eTvOPa6.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/98ICguU.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/rw6H1bM.png" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/7lNy72j.jpeg" alt="">
+    <img class="img-apilada" src="https://i.imgur.com/fUbQVg1.jpeg" alt="">
   </div>
 
-  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-    <a href="#" class="close">&times;</a>
-    <img id="lightbox-img" src="">
+  <div id="bienvenida" class="modal">
+    <div class="modal-contenido">
+      <h2>!</h2>
+      <p>perros
+      en la ciudad
+    se escuchan.</p>
+      <button onclick="cerrarModal()">sentir</button>
+    </div>
   </div>
+
+  <script>
+    
+    window.onload = function () {
+      document.getElementById("bienvenida").classList.add("visible");
+    };
+
+    function cerrarModal() {
+      document.getElementById("bienvenida").style.display = "none";
+
+    
+      const imagenes = document.querySelectorAll('.galeria img');
+      imagenes.forEach((img, i) => {
+        setTimeout(() => {
+          img.classList.remove('img-apilada');
+          img.classList.add('img-liberada');
+        }, i * 80);
+      });
+    }
+  </script>
+<div id="lightbox" class="modal" style="display: none;">
+  <img id="lightbox-img" src="">
+</div>
+
 <script>
-  window.onload = function () {
-    document.getElementById("bienvenida").style.display = "flex";
-  };
+ 
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.getElementById("bienvenida").classList.add("visible");
+    }, 50);
+  });
 
   function cerrarModal() {
     document.getElementById("bienvenida").style.display = "none";
-  }
-</script>
-  <script>
-    function openLightbox(src) {
-      document.getElementById("lightbox-img").src = src;
-      document.getElementById("lightbox").style.display = "flex";
-    }
 
-    function closeLightbox() {
-      document.getElementById("lightbox").style.display = "none";
-    }
-  </script>
-<div id="bienvenida" class="modal">
-  <div class="modal-contenido">
-    <h2>invitaciao</h2>
-    <p>lorem ipsum o ipsum lore lo q sea</p>
-    <button onclick="cerrarModal()">Entrar</button>
-  </div>
-</div>
+    const imagenes = document.querySelectorAll('.galeria img');
+    imagenes.forEach((img, i) => {
+      setTimeout(() => {
+        img.style.transform = `translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px) rotate(${Math.random() * 10 - 5}deg) scale(1.05)`;
+        img.style.opacity = "0.5";
+      }, i * 120);
+
+      setTimeout(() => {
+        img.classList.remove('img-apilada');
+        img.classList.add('img-liberada');
+      }, i * 120 + 600);
+    });
+  }
+
+  const imagenes = document.querySelectorAll('.galeria img');
+  imagenes.forEach(img => {
+    img.addEventListener('click', function () {
+      document.getElementById("lightbox-img").src = this.src;
+      document.getElementById("lightbox").style.display = "flex";
+    });
+  });
+
+  document.getElementById("lightbox").addEventListener('click', function () {
+    this.style.display = "none";
+  });
+</script>
+
 
 </body>
 </html>
