@@ -133,12 +133,24 @@
   z-index: 3000;
 }
 
+
+
 #lightbox img {
   max-width: 90%;
   max-height: 90%;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  transform: scale(0.8);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  opacity: 0;
 }
+
+#lightbox.visible img {
+  transform: scale(1);
+  opacity: 1;
+}
+
+
 
   </style>
 </head>
@@ -184,67 +196,58 @@
     </div>
   </div>
 
-  <script>
-    
-    window.onload = function () {
-      document.getElementById("bienvenida").classList.add("visible");
-    };
-
-    function cerrarModal() {
-      document.getElementById("bienvenida").style.display = "none";
-
-    
-      const imagenes = document.querySelectorAll('.galeria img');
-      imagenes.forEach((img, i) => {
-        setTimeout(() => {
-          img.classList.remove('img-apilada');
-          img.classList.add('img-liberada');
-        }, i * 80);
-      });
-    }
-  </script>
+  
 <div id="lightbox" class="modal" style="display: none;">
   <img id="lightbox-img" src="">
 </div>
 
 <script>
- 
   window.addEventListener('DOMContentLoaded', () => {
+   
     setTimeout(() => {
       document.getElementById("bienvenida").classList.add("visible");
     }, 50);
-  });
 
-  function cerrarModal() {
-    document.getElementById("bienvenida").style.display = "none";
+    
+    window.cerrarModal = function () {
+      document.getElementById("bienvenida").style.display = "none";
 
+      const imagenes = document.querySelectorAll('.galeria img');
+      imagenes.forEach((img, i) => {
+        setTimeout(() => {
+          img.style.transform = `translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px) rotate(${Math.random() * 10 - 5}deg) scale(1.05)`;
+          img.style.opacity = "0.5";
+        }, i * 120);
+
+        setTimeout(() => {
+          img.classList.remove('img-apilada');
+          img.classList.add('img-liberada');
+        }, i * 120 + 600);
+      });
+    };
+
+    
     const imagenes = document.querySelectorAll('.galeria img');
-    imagenes.forEach((img, i) => {
-      setTimeout(() => {
-        img.style.transform = `translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px) rotate(${Math.random() * 10 - 5}deg) scale(1.05)`;
-        img.style.opacity = "0.5";
-      }, i * 120);
-
-      setTimeout(() => {
-        img.classList.remove('img-apilada');
-        img.classList.add('img-liberada');
-      }, i * 120 + 600);
+    imagenes.forEach(img => {
+      img.addEventListener('click', function () {
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        lightboxImg.src = this.src;
+        lightbox.style.display = "flex";
+        setTimeout(() => {
+          lightbox.classList.add("visible");
+        }, 10); 
+      });
     });
-  }
 
-  const imagenes = document.querySelectorAll('.galeria img');
-  imagenes.forEach(img => {
-    img.addEventListener('click', function () {
-      document.getElementById("lightbox-img").src = this.src;
-      document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("lightbox").addEventListener('click', function () {
+      this.classList.remove("visible");
+      setTimeout(() => {
+        this.style.display = "none";
+      }, 300);
     });
-  });
-
-  document.getElementById("lightbox").addEventListener('click', function () {
-    this.style.display = "none";
   });
 </script>
-
 
 </body>
 </html>
