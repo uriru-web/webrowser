@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Turin #46</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Burned&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://i.imgur.com/Lg2n9tk.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+
+    .container {
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-family: 'Rubik Burned', sans-serif;
+      font-size: 2.5em;
+      margin-top: 0;
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      flex: 1;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      min-width: 250px;
+    }
+
+    a {
+      color: #00d1ff;
+      text-decoration: underline;
+    }
+
+    iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SUM OF IT</h1>
+
+    <div class="row">
+      <div class="box">
+        <p>En este artículo analizamos los efectos diferenciales del género en los casos de desalojo forzado del hogar y de desplazamiento hacia la periferia experimentados por mujeres habitantes de la Ciudad de México. Consideramos que el desalojo es uno de los problemas menos abordados en los estudios urbanos, a pesar de tener una importancia fundamental para discutir las cuestiones de ciudad y vivienda desde una perspectiva feminista. Hipotetizamos que se</p>
+      </div>
+      <div class="box">
+        <a href="https://www.scielo.cl/pdf/invi/v37n104/0718-8358-invi-37-104-10.pdf" target="_blank">get to know your violence</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="box">
+        <p> trata de una expulsión que afecta no solo a las mujeres, sino que a las mujeres racializadas. Así, reuniendo los conceptos de desalojo, movilidad e inmovilidad, “racial banishment”, gentrificación, entre otros y, través de un método de investigación cualitativo que reconstruye los relatos de desalojo y desplazamiento recogidos mediante entrevistas con mujeres de la “Red de Desalojados de la Ciudad de México”, damos textura emocional y encarnada a estos procesos urbanos abstractos. En este contexto, los hallazgos muestran cómo las cuestiones étnico-raciales cruzan interseccionalmente y tienen efectos de género específicos. Asimismo, ubicamos cómo el desplazamiento forzado puede ser entendido desde una perspectiva de movilidad e inmovilidad, donde aspectos como la accesibilidad a la ciudad y la inseguridad son muy sensibles para las mujeres. Finalmente, abordamos cómo entender la experiencia del desalojo desde una perspectiva emocional.</p>
+      </div>
+      <div class="box">
+        <iframe src="https://www.youtube.com/watch?v=Iy0Z_mcMeH8" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="box" style="flex: 1 1 100%;">
+        <p>it ain´t too late to be a better person, i´m not demanding you to leave, i only ask for a real sense of community, if you really want to be here, to be part of this space and it´s dynamics, get to know and RESPECT your surrowndings, the only good way of using privileges its doing them in a good cause, like helping the people</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
