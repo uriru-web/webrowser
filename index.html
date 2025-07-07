@@ -5,140 +5,143 @@
 <title>ABIKOKE</title>
 <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text&display=swap" rel="stylesheet">
 <style>
-body {
-  font-family: 'Wix Madefor Text', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #000;
-  text-align: center;
-  color: white;
-  overflow-x: hidden;
-}
-h1 {
-  background: #fff;
-  color: #555;
-  padding: 20px 0;
-  margin: 0;
-}
-.contenedor-stickers {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-.sticker {
-  position: absolute;
-  width: 150px;
-  cursor: pointer;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-}
-.borde-verde        { box-shadow: 0 0 15px #0f0; }
-.borde-amarillo     { box-shadow: 0 0 15px #ff0; }
-.borde-rojo         { box-shadow: 0 0 15px #f00; }
-.borde-azul         { box-shadow: 0 0 15px #00f; }
-.borde-cian         { box-shadow: 0 0 15px #0ff; }
-.borde-morado       { box-shadow: 0 0 15px #800080; }
-.borde-naranja      { box-shadow: 0 0 15px orange; }
-.borde-verdeoscuro  { box-shadow: 0 0 15px #006400; }
-.sintetizador {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 25vw;
-  max-height: 40vh;
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(40px, 1fr));
-  grid-auto-rows: 40px;
-  padding: 10px;
-  gap: 10px;
-  z-index: 5000;
-  overflow-y: auto;
-  box-sizing: border-box;
-}
-.boton-audio {
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-  border: none;
-  box-shadow: 0 0 4px #000;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  opacity: 0.3;
-  pointer-events: none;
-  filter: grayscale(100%);
-}
-.boton-audio.verde       { background: #0f0; box-shadow: 0 0 10px #0f0; }
-.boton-audio.amarillo    { background: #ff0; box-shadow: 0 0 10px #ff0; }
-.boton-audio.rojo        { background: #f00; box-shadow: 0 0 10px #f00; }
-.boton-audio.azul        { background: #00f; box-shadow: 0 0 10px #00f; }
-.boton-audio.cian        { background: #0ff; box-shadow: 0 0 10px #0ff; }
-.boton-audio.morado      { background: #800080; box-shadow: 0 0 10px #800080; }
-.boton-audio.naranja     { background: orange; box-shadow: 0 0 10px orange; }
-.boton-audio.verdeoscuro { background: #006400; box-shadow: 0 0 10px #006400; }
-@keyframes latido {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-.latido { animation: latido 1.2s infinite; }
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 3000;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.modal.visible { opacity: 1; }
-.modal img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255,255,255,0.2);
-  transform: scale(0.8);
-  transition: transform 0.6s ease, opacity 0.6s ease;
-  opacity: 0;
-}
-.modal.visible img {
-  transform: scale(1);
-  opacity: 1;
-}
-.modal-contenido {
-  background: #f1f1f1;
-  color: #111;
-  padding: 25px 30px;
-  border-radius: 14px;
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-  animation: aparecer 1.2s ease;
-}
-@keyframes aparecer {
-  from { transform: scale(0.8); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
-}
-.modal-contenido button {
-  background: #333;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.modal-contenido button:hover { background: #555; }
+body { margin:0; background:#000; overflow:hidden; font-family:'Wix Madefor Text', sans-serif; color:white; }
+h1 { background:#fff; color:#555; padding:20px 0; margin:0; text-align:center; }
+.contenedor { display:flex; width:100vw; height:100vh; }
+.sintetizador { width:25vw; padding:10px; display:grid; grid-template-columns:repeat(auto-fill,minmax(40px,1fr)); gap:10px; overflow-y:auto; z-index:5000; }
+.espacio { position:relative; width:75vw; height:100vh; overflow:hidden; }
+svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; pointer-events:none; }
+.linea { opacity:0; transition:opacity .3s ease, stroke .3s ease; }
+.sticker { position:absolute; width:150px; cursor:pointer; transition:transform .5s ease, box-shadow .5s ease; z-index:3; }
+.boton { width:40px;height:40px;border-radius:6px;border:none;opacity:.3;filter:grayscale(100%);cursor:pointer;box-shadow:0 0 4px #000; transition:all .3s; }
+.boton.reproduciendo { box-shadow:0 0 10px #fff; opacity:1; filter:none; }
+@keyframes latido {0%,100%{opacity:1;}50%{opacity:.5;}}
+.latido { animation:latido 1.2s infinite; }
+.borde-verde { box-shadow:0 0 15px #0f0; }
+.borde-amarillo { box-shadow:0 0 15px #ff0; }
+.borde-rojo { box-shadow:0 0 15px #f00; }
+.borde-azul { box-shadow:0 0 15px #00f; }
+.borde-cian { box-shadow:0 0 15px #0ff; }
+.borde-morado { box-shadow:0 0 15px #800080; }
+.borde-naranja { box-shadow:0 0 15px orange; }
+.borde-verdeoscuro { box-shadow:0 0 15px #006400; }
+.modal { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:6000; opacity:0; transition:opacity 1.5s ease; }
+.modal.visible { opacity:1; }
+.modal-contenido { background:#f1f1f1; color:#111; padding:25px 30px; border-radius:14px; max-width:400px; width:90%; text-align:center; animation:aparecer 1.2s ease; }
+@keyframes aparecer { from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
+.modal-contenido button { background:#333; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer; }
+.modal-contenido button:hover { background:#555; }
+#lightbox { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:7000; }
+#lightbox.visible { display:flex; }
+#lightbox img { max-width:90%; max-height:90%; border-radius:10px; transform:scale(0.8); opacity:0; transition:transform 0.6s ease, opacity 0.6s ease; }
+#lightbox.visible img { transform:scale(1); opacity:1; }
 </style>
 </head>
 <body>
-<div id="sintetizador" class="sintetizador"></div>
 <h1>EN LA CIUDAD</h1>
-
-<div class="contenedor-stickers">
-  <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
+<div class="contenedor">
+  <div id="sintetizador" class="sintetizador"></div>
+  <div class="espacio">
+     <svg id="mapa" viewBox="0 0 1022 1250" xmlns="http://www.w3.org/2000/svg">
+<path
+       inkscape:connector-curvature="0"
+       d="m 154.15776,788.57404 226.50835,0 105.03739,0 15.00535,81.12263 60.49028,0 56.73096,39.90671 123.94229,0.13881 -0.79735,161.11991 168.47478,169.8891"
+       style="fill:none;stroke:#b89d4e;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       id="linea-0"
+       sodipodi:nodetypes="ccccccccc" />
+<path
+       d="m 361.07143,482.83337 17.37179,30.08883"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-1"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 675.28698,294.69106 17.67767,-17.67767"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-2"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 380.32243,164.38138 0,19.69797"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-3"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 802.5662,945.2293 0,-18.68782"
+       style="fill:#03923f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-4"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 259.28571,438.19052 0,-44.28572"
+       style="fill:#017cc0;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-5"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 335.71429,377.83337 10,10"
+       style="fill:#017cc0;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-6"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 322.74374,496.72157 13.63706,16.16244"
+       style="fill:#d35590;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-7"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 153.03811,145.69356 0,710.41963"
+       style="fill:none;stroke:#ee953a;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+<path
+       d="m 483.92857,102.11909 0,102.5 L 380,308.54766 380,968.9048"
+       style="fill:none;stroke:#9e9a3a;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-9"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 152.85714,649.61909 689.61008,0 37.43162,-37.43162"
+       style="fill:none;stroke:#8d5544;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-10"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 961.16015,927.55163 -47.72971,-47.72971 0,-237.13331 -33.4613,-33.4613"
+       style="fill:none;stroke:#8f1e74;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-11"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 878.83271,609.35358 0,-171.72594 -143.18912,-143.18912 -249.25514,0 -149.12377,-149.12377 0,-28.91562"
+       style="fill:none;stroke:#fac303;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-12"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 153.57143,147.11909 40,40 481.42857,0"
+       style="fill:none;stroke:#d9261a;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-13"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 674.28572,186.76194 0,518.92858"
+       style="fill:none;stroke:#96cfb8;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-14"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 879.28572,925.33337 -123.57143,0 -27.32143,-27.32142 0,-169.46429 -23.30357,-23.30357 -88.66072,0 -157.45535,-157.45536 0,-193.52679"
+       style="fill:none;stroke:#03923f;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-15"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 38.214286,322.83337 114.642854,0 67.85715,67.85715 296.07143,0 44.64285,44.64285 0,510"
+       style="fill:none;stroke:#017cc0;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-16"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 110,693.54766 178.03571,-178.03572 295.89286,0 91.16072,-91.16071 37.41071,0 81.02679,81.02679 0,59.95535 44.12946,44.12947 41.27232,0"
+       style="fill:none;stroke:#d35590;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-17"
+       inkscape:connector-curvature="0" />
+<path
+       d="m 324.28571,355.33337 319.93908,0 67.66364,67.66364 62.3935,0 86.88141,-86.88141 0,-302.043899"
+       style="fill:none;stroke:#a9a9a9;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="linea-18"
+       inkscape:connector-curvature="0" />
+</svg>
+      <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
   <img class="sticker" src="https://i.imgur.com/SKi63lz.jpeg" data-audio="abuela cantando paloma negra.mp3">
   <img class="sticker" src="https://i.imgur.com/QzJlqaj.jpeg" data-audio="Cristo-viejo_-Tacubaya-copia.mp3">
   <img class="sticker" src="https://i.imgur.com/JkkDyQt.jpeg" data-audio="Estaba en las montañas porque yo era nieve.mp3">
@@ -157,6 +160,7 @@ h1 {
   <img class="sticker" src="https://i.imgur.com/98ICguU.jpeg" data-audio="trompetista-perdió-su-espacio.mp3">
   <img class="sticker" src="https://i.imgur.com/rw6H1bM.png" data-audio="después de hablar de escultura con iván.mp3">
   <img class="sticker" src="https://i.imgur.com/7lNy72j.jpeg" data-audio="así cantan las sirenas.mp3">
+  </div>
 </div>
 
 <div id="bienvenida" class="modal">
@@ -167,99 +171,86 @@ h1 {
   </div>
 </div>
 
-<div id="lightbox" class="modal" style="display:none;">
-  <img id="lightbox-img" src="">
-</div>
+<div id="lightbox"><img id="lightbox-img" src=""></div>
 
 <script>
 window.addEventListener('DOMContentLoaded', () => {
   const stickers = document.querySelectorAll('.sticker');
+  const sintetizador = document.getElementById('sintetizador');
   const audioMap = new Map();
+  const colores = ['verde','amarillo','rojo','azul','cian','morado','naranja','verdeoscuro'];
+  const colorHex = {'verde':'#0f0','amarillo':'#ff0','rojo':'#f00','azul':'#00f','cian':'#0ff','morado':'#800080','naranja':'orange','verdeoscuro':'#006400'};
 
   stickers.forEach((img, i) => {
-    const x = Math.random() * 75 + 25;
-    const y = Math.random() * 80;
+    const largeur = 150 / window.innerWidth * 100;
+    const x = Math.random() * (75 - largeur) + 25;
+    const y = Math.random() * (100 - 20);
     const r = Math.random() * 30 - 15;
     img.style.left = x + 'vw';
     img.style.top = y + 'vh';
-    img.style.transform = 'rotate(' + r + 'deg)';
-    img.style.zIndex = 10 + i;
+    img.style.transform = `rotate(${r}deg)`;
 
-    img.addEventListener('click', function () {
-      const audioSrc = this.getAttribute("data-audio");
+    img.addEventListener('click', () => {
+      const src = img.dataset.audio;
+      const linea = document.getElementById('linea-' + i);
 
-      if (audioMap.has(audioSrc)) {
-        mostrarZoom(this.src);
-        return;
+      if (!audioMap.has(src)) {
+        const audio = new Audio(src);
+        audio.loop = true;
+        audio.volume = .6;
+        audio.play();
+
+        const boton = document.createElement('button');
+        boton.className = 'boton';
+        const color = colores[Math.floor(Math.random()*colores.length)];
+        boton.classList.add(color);
+        boton.style.background = colorHex[color];
+
+        img.classList.add('latido');
+        img.classList.add('borde-' + color);
+        linea.style.stroke = colorHex[color];
+        linea.style.opacity = .4;
+
+        boton.onclick = () => {
+          if (audio.paused) {
+            audio.play();
+            img.classList.add('latido');
+            img.classList.add('borde-' + color);
+            linea.style.opacity = .4;
+            boton.style.opacity = "1";
+            boton.style.filter = "none";
+          } else {
+            audio.pause();
+            img.classList.remove('latido');
+            img.classList.remove('borde-' + color);
+            linea.style.opacity = 0;
+            boton.style.opacity = "0.3";
+            boton.style.filter = "grayscale(100%)";
+          }
+        };
+
+        sintetizador.appendChild(boton);
+        audioMap.set(src, {audio,boton,linea});
+        mostrarZoom(img.src);
+      } else {
+        mostrarZoom(img.src);
       }
-
-      const nuevoAudio = new Audio(audioSrc);
-      nuevoAudio.loop = true;
-      nuevoAudio.volume = 0.6;
-      nuevoAudio.play();
-
-      const boton = document.createElement("button");
-      boton.classList.add("boton-audio");
-      const colores = ["verde", "amarillo", "rojo", "azul", "cian", "morado", "naranja", "verdeoscuro"];
-      const color = colores[Math.floor(Math.random() * colores.length)];
-      boton.classList.add(color);
-      boton.dataset.color = color;
-
-      this.classList.add("latido");
-      this.classList.add("borde-" + color);
-
-      boton.onclick = () => {
-        if (nuevoAudio.paused) {
-          nuevoAudio.play();
-          boton.classList.add("reproduciendo");
-          this.classList.add("latido");
-          this.classList.add("borde-" + color);
-          boton.style.opacity = "1";
-          boton.style.filter = "none";
-        } else {
-          nuevoAudio.pause();
-          boton.classList.remove("reproduciendo");
-          this.classList.remove("latido");
-          this.classList.remove("borde-" + color);
-          boton.style.opacity = "0.3";
-          boton.style.filter = "grayscale(100%)";
-        }
-      };
-
-      document.getElementById("sintetizador").appendChild(boton);
-      audioMap.set(audioSrc, { audio: nuevoAudio, boton: boton });
-
-      if (audioMap.size === stickers.length) {
-        audioMap.forEach(({ boton }) => {
-          boton.style.opacity = "1";
-          boton.style.filter = "none";
-          boton.style.pointerEvents = "auto";
-        });
-      }
-
-      mostrarZoom(this.src);
     });
   });
 });
 
-function mostrarZoom(src) {
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-  lightboxImg.src = src;
-  lightbox.style.display = "flex";
-  setTimeout(() => lightbox.classList.add("visible"), 10);
-}
-document.getElementById("lightbox").addEventListener('click', function () {
-  this.classList.remove("visible");
-  setTimeout(() => { this.style.display = "none"; }, 300);
-});
-function cerrarModal() {
-  document.getElementById("bienvenida").style.display = "none";
-}
-setTimeout(() => {
-  document.getElementById("bienvenida").classList.add("visible");
-}, 50);
-</script>
+function cerrarModal(){ document.getElementById("bienvenida").style.display="none"; }
+setTimeout(()=>{document.getElementById("bienvenida").classList.add("visible");},50);
 
+function mostrarZoom(src){
+  const lightbox=document.getElementById("lightbox");
+  const img=document.getElementById("lightbox-img");
+  img.src=src;
+  lightbox.classList.add("visible");
+}
+document.getElementById("lightbox").addEventListener('click',()=>{
+  document.getElementById("lightbox").classList.remove("visible");
+});
+</script>
 </body>
 </html>
