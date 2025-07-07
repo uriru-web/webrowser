@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>ABIKOKE</title>
 <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text&display=swap" rel="stylesheet">
 <style>
 body { margin:0; background:#000; overflow:hidden; font-family:'Wix Madefor Text', sans-serif; color:white; }
 h1 { background:#fff; color:#555; padding:20px 0; margin:0; text-align:center; }
 .contenedor { display:flex; width:100vw; height:100vh; }
-.sintetizador { width:25vw; padding:10px; display:grid; grid-template-columns:repeat(auto-fill,minmax(40px,1fr)); gap:10px; overflow-y:auto; z-index:5000; }
-.espacio { position:relative; width:75vw; height:100vh; overflow:hidden; }
+.sintetizador {
+  width:25vw; max-height:40vh;
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(40px,1fr));
+  grid-auto-rows:40px; gap:10px; padding:10px;
+  position:fixed; bottom:0; left:0; z-index:5000;
+}
+.espacio { position:relative; width:75vw; height:100vh; overflow:hidden; margin-left:25vw; }
 svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; pointer-events:none; }
 .linea { opacity:0; transition:opacity .3s ease, stroke .3s ease; }
 .sticker { position:absolute; width:150px; cursor:pointer; transition:transform .5s ease, box-shadow .5s ease; z-index:3; }
-.boton { width:40px;height:40px;border-radius:6px;border:none;opacity:.3;filter:grayscale(100%);cursor:pointer;box-shadow:0 0 4px #000; transition:all .3s; }
+.boton { width:40px; height:40px; border-radius:6px; border:none; opacity:.3; filter:grayscale(100%); cursor:pointer; box-shadow:0 0 4px #000; transition:all .3s; }
 .boton.reproduciendo { box-shadow:0 0 10px #fff; opacity:1; filter:none; }
 @keyframes latido {0%,100%{opacity:1;}50%{opacity:.5;}}
 .latido { animation:latido 1.2s infinite; }
@@ -42,7 +47,7 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
 <div class="contenedor">
   <div id="sintetizador" class="sintetizador"></div>
   <div class="espacio">
-     <svg id="mapa" viewBox="0 0 1022 1250" xmlns="http://www.w3.org/2000/svg">
+ <svg id="mapa" viewBox="0 0 1022 1250" xmlns="http://www.w3.org/2000/svg">
 <path
        inkscape:connector-curvature="0"
        d="m 154.15776,788.57404 226.50835,0 105.03739,0 15.00535,81.12263 60.49028,0 56.73096,39.90671 123.94229,0.13881 -0.79735,161.11991 168.47478,169.8891"
@@ -141,7 +146,8 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
        id="linea-18"
        inkscape:connector-curvature="0" />
 </svg>
-      <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
+    </svg>
+    <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
   <img class="sticker" src="https://i.imgur.com/SKi63lz.jpeg" data-audio="abuela cantando paloma negra.mp3">
   <img class="sticker" src="https://i.imgur.com/QzJlqaj.jpeg" data-audio="Cristo-viejo_-Tacubaya-copia.mp3">
   <img class="sticker" src="https://i.imgur.com/JkkDyQt.jpeg" data-audio="Estaba en las montañas porque yo era nieve.mp3">
@@ -162,7 +168,6 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
   <img class="sticker" src="https://i.imgur.com/7lNy72j.jpeg" data-audio="así cantan las sirenas.mp3">
   </div>
 </div>
-
 <div id="bienvenida" class="modal">
   <div class="modal-contenido">
     <h2>!</h2>
@@ -170,9 +175,7 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
     <button onclick="cerrarModal()">sentir</button>
   </div>
 </div>
-
 <div id="lightbox"><img id="lightbox-img" src=""></div>
-
 <script>
 window.addEventListener('DOMContentLoaded', () => {
   const stickers = document.querySelectorAll('.sticker');
@@ -182,13 +185,11 @@ window.addEventListener('DOMContentLoaded', () => {
   const colorHex = {'verde':'#0f0','amarillo':'#ff0','rojo':'#f00','azul':'#00f','cian':'#0ff','morado':'#800080','naranja':'orange','verdeoscuro':'#006400'};
 
   stickers.forEach((img, i) => {
-    const largeur = 150 / window.innerWidth * 100;
-    const x = Math.random() * (75 - largeur) + 25;
-    const y = Math.random() * (100 - 20);
+    const anchoVW = (150 / window.innerWidth) * 100;
+    const x = Math.random() * (100 - anchoVW - 25) + 25;
+    const y = Math.random() * 80;
     const r = Math.random() * 30 - 15;
-    img.style.left = x + 'vw';
-    img.style.top = y + 'vh';
-    img.style.transform = `rotate(${r}deg)`;
+    img.style.left = x+'vw'; img.style.top = y+'vh'; img.style.transform='rotate('+r+'deg)';
 
     img.addEventListener('click', () => {
       const src = img.dataset.audio;
@@ -196,57 +197,38 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (!audioMap.has(src)) {
         const audio = new Audio(src);
-        audio.loop = true;
-        audio.volume = .6;
-        audio.play();
+        audio.loop = true; audio.volume=.6; audio.play();
 
         const boton = document.createElement('button');
-        boton.className = 'boton';
+        boton.className='boton';
         const color = colores[Math.floor(Math.random()*colores.length)];
         boton.classList.add(color);
-        boton.style.background = colorHex[color];
+        boton.style.background=colorHex[color];
 
-        img.classList.add('latido');
-        img.classList.add('borde-' + color);
-        linea.style.stroke = colorHex[color];
-        linea.style.opacity = .4;
+        img.classList.add('latido'); img.classList.add('borde-'+color);
+        linea.style.stroke=colorHex[color]; linea.style.opacity=.4;
 
-        boton.onclick = () => {
-          if (audio.paused) {
-            audio.play();
-            img.classList.add('latido');
-            img.classList.add('borde-' + color);
-            linea.style.opacity = .4;
-            boton.style.opacity = "1";
-            boton.style.filter = "none";
-          } else {
-            audio.pause();
-            img.classList.remove('latido');
-            img.classList.remove('borde-' + color);
-            linea.style.opacity = 0;
-            boton.style.opacity = "0.3";
-            boton.style.filter = "grayscale(100%)";
+        boton.onclick=()=>{
+          if(audio.paused){ audio.play();
+            img.classList.add('latido'); img.classList.add('borde-'+color);
+            linea.style.opacity=.4; boton.style.opacity="1"; boton.style.filter="none";
+          } else { audio.pause();
+            img.classList.remove('latido'); img.classList.remove('borde-'+color);
+            linea.style.opacity=0; boton.style.opacity="0.3"; boton.style.filter="grayscale(100%)";
           }
         };
-
         sintetizador.appendChild(boton);
-        audioMap.set(src, {audio,boton,linea});
+        audioMap.set(src,{audio,boton,linea});
         mostrarZoom(img.src);
-      } else {
-        mostrarZoom(img.src);
-      }
+      } else { mostrarZoom(img.src); }
     });
   });
 });
-
-function cerrarModal(){ document.getElementById("bienvenida").style.display="none"; }
+function cerrarModal(){document.getElementById("bienvenida").style.display="none";}
 setTimeout(()=>{document.getElementById("bienvenida").classList.add("visible");},50);
-
 function mostrarZoom(src){
-  const lightbox=document.getElementById("lightbox");
-  const img=document.getElementById("lightbox-img");
-  img.src=src;
-  lightbox.classList.add("visible");
+  const l=document.getElementById("lightbox"); const i=document.getElementById("lightbox-img");
+  i.src=src; l.classList.add("visible");
 }
 document.getElementById("lightbox").addEventListener('click',()=>{
   document.getElementById("lightbox").classList.remove("visible");
