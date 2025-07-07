@@ -211,7 +211,19 @@
   background: #f00;
   box-shadow: 0 0 10px #f00;
 }
+@keyframes latido {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
 
+.latido {
+  animation: latido 1.2s infinite;
+}
+    
 </style>
 </head>
 <body>
@@ -289,6 +301,7 @@
           nuevoAudio.loop = true;
           nuevoAudio.volume = 0.6;
           nuevoAudio.play();
+          img.classList.add("latido");
 
           const boton = document.createElement("button");
           boton.classList.add("boton-audio", "reproduciendo");
@@ -296,16 +309,19 @@
           const color = colores[Math.floor(Math.random() * colores.length)];
           boton.classList.add(color);
           boton.dataset.src = audioSrc;
+          
+boton.onclick = function () {
+  if (nuevoAudio.paused) {
+    nuevoAudio.play();
+    boton.classList.add("reproduciendo");
+    img.classList.add("latido");
+  } else {
+    nuevoAudio.pause();
+    boton.classList.remove("reproduciendo");
+    img.classList.remove("latido");
+  }
+};
 
-          boton.onclick = function () {
-            if (nuevoAudio.paused) {
-              nuevoAudio.play();
-              boton.classList.add("reproduciendo");
-            } else {
-              nuevoAudio.pause();
-              boton.classList.remove("reproduciendo");
-            }
-          };
 
           document.getElementById("sintetizador").appendChild(boton);
           audioMap.set(audioSrc, { audio: nuevoAudio, boton: boton });
