@@ -149,9 +149,6 @@
   transform: scale(1);
   opacity: 1;
 }
-
-
-
   
 .contenedor-stickers {
   position: relative;
@@ -167,12 +164,43 @@
   cursor: pointer;
   transition: transform 0.5s ease;
 }
+.sintetizador {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 25vw;
+  height: 100vh;
+  background: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  gap: 10px;
+  align-content: flex-start;
+  justify-content: center;
+  z-index: 100;
+}
+.boton-audio {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #444;
+  border: none;
+  box-shadow: 0 0 4px #000;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.boton-audio.reproduciendo {
+  background: #0f0;
+  box-shadow: 0 0 10px #0f0;
+}
 
 </style>
 </head>
 <body>
 
   <h1>EN LA CIUDAD</h1>
+
+  <div id="sintetizador" class="sintetizador"></div>
 
   <div class="contenedor-stickers">
   <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
@@ -243,8 +271,23 @@
           const nuevoAudio = new Audio(audioSrc);
           nuevoAudio.loop = true;
           nuevoAudio.volume = 0.6;
-          nuevoAudio.play().catch(e => console.log("Audio bloqueado"));
-          currentAudios.push(nuevoAudio);
+          nuevoAudio.play();
+          const boton = document.createElement("button");
+  boton.classList.add("boton-audio", "reproduciendo");
+          boton.onclick = function () {
+    if (nuevoAudio.paused) {
+      nuevoAudio.play();
+      boton.classList.add("reproduciendo");
+    } else {
+      nuevoAudio.pause();
+      boton.classList.remove("reproduciendo");
+    }
+  };
+  if (![...document.querySelectorAll('.boton-audio')].some(b => b.dataset.src === audioSrc)) {
+    boton.dataset.src = audioSrc;
+    document.getElementById("sintetizador").appendChild(boton);
+  }
+}
         }
       });
     });
