@@ -38,7 +38,7 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
 .modal-contenido button:hover { background:#555; }
 #lightbox { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:7000; }
 #lightbox.visible { display:flex; }
-#lightbox img { max-width:90%; max-height:90%; border-radius:10px; transform:scale(0.8); opacity:0; transition:transform 0.6s ease, opacity 0.6s ease; }
+#lightbox img { max-width:90%; max-height:90%; border-radius:10px; transform:scale(0.8); opacity:0; transition:transform 0.8s cubic-bezier(0.4,0,0.2,1), opacity 0.8s; }
 #lightbox.visible img { transform:scale(1); opacity:1; }
 </style>
 </head>
@@ -47,7 +47,7 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
 <div class="contenedor">
   <div id="sintetizador" class="sintetizador"></div>
   <div class="espacio">
- <svg id="mapa" viewBox="0 0 1022 1250" xmlns="http://www.w3.org/2000/svg">
+    <svg id="mapa" viewBox="0 0 1022 1250" xmlns="http://www.w3.org/2000/svg">
 <path
        inkscape:connector-curvature="0"
        d="m 154.15776,788.57404 226.50835,0 105.03739,0 15.00535,81.12263 60.49028,0 56.73096,39.90671 123.94229,0.13881 -0.79735,161.11991 168.47478,169.8891"
@@ -170,11 +170,9 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
 </div>
 <div id="bienvenida" class="modal">
   <div class="modal-contenido">
-    <h2>!</h2>
-    <p>perros en la ciudad se escuchan.</p>
-    <button onclick="cerrarModal()">sentir</button>
-  </div>
-</div>
+    <h2>!</h2><p>perros en la ciudad se escuchan.
+    </p><button onclick="cerrarModal()">sentir</button>
+  </div></div>
 <div id="lightbox"><img id="lightbox-img" src=""></div>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
@@ -185,11 +183,11 @@ window.addEventListener('DOMContentLoaded', () => {
   const colorHex = {'verde':'#0f0','amarillo':'#ff0','rojo':'#f00','azul':'#00f','cian':'#0ff','morado':'#800080','naranja':'orange','verdeoscuro':'#006400'};
 
   stickers.forEach((img, i) => {
-    const anchoVW = (150 / window.innerWidth) * 100;
+        const anchoVW = (150 / window.innerWidth) * 100;
     const x = Math.random() * (100 - anchoVW - 25) + 25;
-    const y = Math.random() * 80;
-    const r = Math.random() * 30 - 15;
-    img.style.left = x+'vw'; img.style.top = y+'vh'; img.style.transform='rotate('+r+'deg)';
+    img.style.left = x + 'vw';
+    img.style.top = Math.random()*80+'vh';
+    img.style.transform = 'rotate('+(Math.random()*30-15)+'deg)';
 
     img.addEventListener('click', () => {
       const src = img.dataset.audio;
@@ -197,18 +195,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (!audioMap.has(src)) {
         const audio = new Audio(src);
-        audio.loop = true; audio.volume=.6; audio.play();
+        audio.loop=true; audio.volume=.6; audio.play();
 
         const boton = document.createElement('button');
         boton.className='boton';
         const color = colores[Math.floor(Math.random()*colores.length)];
-        boton.classList.add(color);
-        boton.style.background=colorHex[color];
+        boton.classList.add(color); boton.style.background=colorHex[color];
 
         img.classList.add('latido'); img.classList.add('borde-'+color);
         linea.style.stroke=colorHex[color]; linea.style.opacity=.4;
 
-        boton.onclick=()=>{
+        boton.onclick=()=> {
           if(audio.paused){ audio.play();
             img.classList.add('latido'); img.classList.add('borde-'+color);
             linea.style.opacity=.4; boton.style.opacity="1"; boton.style.filter="none";
@@ -230,9 +227,7 @@ function mostrarZoom(src){
   const l=document.getElementById("lightbox"); const i=document.getElementById("lightbox-img");
   i.src=src; l.classList.add("visible");
 }
-document.getElementById("lightbox").addEventListener('click',()=>{
-  document.getElementById("lightbox").classList.remove("visible");
-});
+document.getElementById("lightbox").addEventListener('click',()=>{document.getElementById("lightbox").classList.remove("visible");});
 </script>
 </body>
 </html>
