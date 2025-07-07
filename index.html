@@ -274,6 +274,7 @@
           nuevoAudio.play();
           const boton = document.createElement("button");
   boton.classList.add("boton-audio", "reproduciendo");
+          boton.dataset.src = audioSrc;
           boton.onclick = function () {
     if (nuevoAudio.paused) {
       nuevoAudio.play();
@@ -284,7 +285,6 @@
     }
   };
   if (![...document.querySelectorAll('.boton-audio')].some(b => b.dataset.src === audioSrc)) {
-    boton.dataset.src = audioSrc;
     document.getElementById("sintetizador").appendChild(boton);
   }
 }
@@ -335,7 +335,6 @@
         this.style.display = "none";
       }, 300);
     });
-  });
 </script>
 
 </body>
