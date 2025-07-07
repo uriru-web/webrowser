@@ -1,144 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>ABIKOKE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Wix Madefor Text', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #000;
-      text-align: center;
-      color: white;
-      overflow-x: hidden;
-    }
-
-    h1 {
-      background: #fff;
-      color: #555;
-      padding: 20px 0;
-      margin: 0;
-    }
-
-    .galeria {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-      gap: 20px;
-      position: relative;
-    }
-
-    .galeria img {
-      width: 250px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      transition: all 1.6s cubic-bezier(0.65, 0, 0.35, 1);
-      cursor: pointer;
-    }
-
-    .img-apilada {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.3) rotate(10deg);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.img-liberada {
-  position: static;
-  transform: none;
-  opacity: 1;
-  pointer-events: auto;
-}
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  opacity: 0;
-  transition: opacity 1.5s ease;
-}
-
-.modal.visible {
-  opacity: 1;
-}
-
-.modal-contenido {
-  background: #f1f1f1;
-  color: #111;
-  padding: 25px 30px;
-  border-radius: 14px;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+<meta charset="UTF-8">
+<title>ABIKOKE</title>
+<link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: 'Wix Madefor Text', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #000;
   text-align: center;
-  animation: aparecer 1.2s ease;
+  color: white;
+  overflow-x: hidden;
 }
-
-@keyframes aparecer {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+h1 {
+  background: #fff;
+  color: #555;
+  padding: 20px 0;
+  margin: 0;
 }
-
-    .modal-contenido h2 {
-      margin-top: 0;
-      color: #444;
-      font-size: 1.8em;
-    }
-
-    .modal-contenido p {
-      font-size: 1.1em;
-      margin-bottom: 20px;
-    }
-
-    .modal-contenido button {
-      background: #333;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1em;
-    }
-
-    .modal-contenido button:hover {
-      background: #555;
-    }
-    #lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
+.contenedor-stickers {
+  position: relative;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.95);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 3000;
+  overflow: hidden;
 }
+.sticker {
+  position: absolute;
+  width: 150px;
+  cursor: pointer;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+.borde-verde        { box-shadow: 0 0 15px #0f0; }
+.borde-amarillo     { box-shadow: 0 0 15px #ff0; }
+.borde-rojo         { box-shadow: 0 0 15px #f00; }
+.borde-azul         { box-shadow: 0 0 15px #00f; }
+.borde-cian         { box-shadow: 0 0 15px #0ff; }
+.borde-morado       { box-shadow: 0 0 15px #800080; }
+.borde-naranja      { box-shadow: 0 0 15px orange; }
+.borde-verdeoscuro  { box-shadow: 0 0 15px #006400; }
 .sintetizador {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 25vw;
   max-height: 40vh;
-  background: transparent;
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(40px, 1fr));
   grid-auto-rows: 40px;
@@ -152,85 +59,85 @@
   width: 40px;
   height: 40px;
   border-radius: 6px;
-  background: #444;
   border: none;
   box-shadow: 0 0 4px #000;
   transition: all 0.3s ease;
   cursor: pointer;
+  opacity: 0.3;
+  pointer-events: none;
+  filter: grayscale(100%);
 }
-.boton-audio.reproduciendo {
-  background: #0f0;
-  box-shadow: 0 0 10px #0f0;
+.boton-audio.verde       { background: #0f0; box-shadow: 0 0 10px #0f0; }
+.boton-audio.amarillo    { background: #ff0; box-shadow: 0 0 10px #ff0; }
+.boton-audio.rojo        { background: #f00; box-shadow: 0 0 10px #f00; }
+.boton-audio.azul        { background: #00f; box-shadow: 0 0 10px #00f; }
+.boton-audio.cian        { background: #0ff; box-shadow: 0 0 10px #0ff; }
+.boton-audio.morado      { background: #800080; box-shadow: 0 0 10px #800080; }
+.boton-audio.naranja     { background: orange; box-shadow: 0 0 10px orange; }
+.boton-audio.verdeoscuro { background: #006400; box-shadow: 0 0 10px #006400; }
+@keyframes latido {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
-
-
-
-#lightbox img {
+.latido { animation: latido 1.2s infinite; }
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.modal.visible { opacity: 1; }
+.modal img {
   max-width: 90%;
   max-height: 90%;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
   transform: scale(0.8);
   transition: transform 0.6s ease, opacity 0.6s ease;
   opacity: 0;
 }
-
-#lightbox.visible img {
+.modal.visible img {
   transform: scale(1);
   opacity: 1;
 }
-
-
-
-  
-.contenedor-stickers {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background: transparent;
+.modal-contenido {
+  background: #f1f1f1;
+  color: #111;
+  padding: 25px 30px;
+  border-radius: 14px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  animation: aparecer 1.2s ease;
 }
-
-.sticker {
-  position: absolute;
-  width: 150px;
+@keyframes aparecer {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.modal-contenido button {
+  background: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.5s ease;
 }
-
-
-.boton-audio.verde {
-  background: #0f0;
-  box-shadow: 0 0 10px #0f0;
-}
-.boton-audio.amarillo {
-  background: #ff0;
-  box-shadow: 0 0 10px #ff0;
-}
-.boton-audio.rojo {
-  background: #f00;
-  box-shadow: 0 0 10px #f00;
-}
-@keyframes latido {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.latido {
-  animation: latido 1.2s infinite;
-}
-    
+.modal-contenido button:hover { background: #555; }
 </style>
 </head>
 <body>
 <div id="sintetizador" class="sintetizador"></div>
-  <h1>EN LA CIUDAD</h1>
+<h1>EN LA CIUDAD</h1>
 
-  <div class="contenedor-stickers">
+<div class="contenedor-stickers">
   <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
   <img class="sticker" src="https://i.imgur.com/SKi63lz.jpeg" data-audio="abuela cantando paloma negra.mp3">
   <img class="sticker" src="https://i.imgur.com/QzJlqaj.jpeg" data-audio="Cristo-viejo_-Tacubaya-copia.mp3">
@@ -252,127 +159,106 @@
   <img class="sticker" src="https://i.imgur.com/7lNy72j.jpeg" data-audio="así cantan las sirenas.mp3">
 </div>
 
-  <div id="bienvenida" class="modal">
-    <div class="modal-contenido">
-      <h2>!</h2>
-      <p>perros
-      en la ciudad
-    se escuchan.</p>
-      <button onclick="cerrarModal()">sentir</button>
-    </div>
+<div id="bienvenida" class="modal">
+  <div class="modal-contenido">
+    <h2>!</h2>
+    <p>perros en la ciudad se escuchan.</p>
+    <button onclick="cerrarModal()">sentir</button>
   </div>
+</div>
 
-  
-<div id="lightbox" class="modal" style="display: none;">
+<div id="lightbox" class="modal" style="display:none;">
   <img id="lightbox-img" src="">
 </div>
 
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const stickers = document.querySelectorAll('.sticker');
-    const contenedor = document.querySelector('.contenedor-stickers');
-    const ancho = contenedor.clientWidth;
-    const alto = contenedor.clientHeight;
+window.addEventListener('DOMContentLoaded', () => {
+  const stickers = document.querySelectorAll('.sticker');
+  const audioMap = new Map();
 
-    stickers.forEach((img, i) => {
-      const x = Math.random() * (ancho * 0.75 - 160) + (ancho * 0.25);
-      const y = Math.random() * (alto - 160);
-      const r = Math.random() * 30 - 15;
+  stickers.forEach((img, i) => {
+    const x = Math.random() * 75 + 25;
+    const y = Math.random() * 80;
+    const r = Math.random() * 30 - 15;
+    img.style.left = x + 'vw';
+    img.style.top = y + 'vh';
+    img.style.transform = 'rotate(' + r + 'deg)';
+    img.style.zIndex = 10 + i;
 
-      img.style.left = `${x}px`;
-      img.style.top = `${y}px`;
-      img.style.transform = `rotate(${r}deg)`;
-      img.style.zIndex = 10 + i;
-    });
+    img.addEventListener('click', function () {
+      const audioSrc = this.getAttribute("data-audio");
 
-    let currentAudios = [];
-    const audioMap = new Map();
-    stickers.forEach(img => {
-      img.addEventListener('click', function () {
-        const lightbox = document.getElementById("lightbox");
-        const lightboxImg = document.getElementById("lightbox-img");
-        lightboxImg.src = this.src;
-        lightbox.style.display = "flex";
-        setTimeout(() => lightbox.classList.add("visible"), 10);
+      if (audioMap.has(audioSrc)) {
+        mostrarZoom(this.src);
+        return;
+      }
 
-        const audioSrc = this.getAttribute("data-audio");
-        if (audioSrc && !audioMap.has(audioSrc)) {
-          const nuevoAudio = new Audio(audioSrc);
-          nuevoAudio.loop = true;
-          nuevoAudio.volume = 0.6;
+      const nuevoAudio = new Audio(audioSrc);
+      nuevoAudio.loop = true;
+      nuevoAudio.volume = 0.6;
+      nuevoAudio.play();
+
+      const boton = document.createElement("button");
+      boton.classList.add("boton-audio");
+      const colores = ["verde", "amarillo", "rojo", "azul", "cian", "morado", "naranja", "verdeoscuro"];
+      const color = colores[Math.floor(Math.random() * colores.length)];
+      boton.classList.add(color);
+      boton.dataset.color = color;
+
+      this.classList.add("latido");
+      this.classList.add("borde-" + color);
+
+      boton.onclick = () => {
+        if (nuevoAudio.paused) {
           nuevoAudio.play();
-          img.classList.add("latido");
-
-          const boton = document.createElement("button");
-          boton.classList.add("boton-audio", "reproduciendo");
-          const colores = ["verde", "amarillo", "rojo"];
-          const color = colores[Math.floor(Math.random() * colores.length)];
-          boton.classList.add(color);
-          boton.dataset.src = audioSrc;
-          
-boton.onclick = function () {
-  if (nuevoAudio.paused) {
-    nuevoAudio.play();
-    boton.classList.add("reproduciendo");
-    img.classList.add("latido");
-  } else {
-    nuevoAudio.pause();
-    boton.classList.remove("reproduciendo");
-    img.classList.remove("latido");
-  }
-};
-
-
-          document.getElementById("sintetizador").appendChild(boton);
-          audioMap.set(audioSrc, { audio: nuevoAudio, boton: boton });
+          boton.classList.add("reproduciendo");
+          this.classList.add("latido");
+          this.classList.add("borde-" + color);
+          boton.style.opacity = "1";
+          boton.style.filter = "none";
+        } else {
+          nuevoAudio.pause();
+          boton.classList.remove("reproduciendo");
+          this.classList.remove("latido");
+          this.classList.remove("borde-" + color);
+          boton.style.opacity = "0.3";
+          boton.style.filter = "grayscale(100%)";
         }
-      });
+      };
+
+      document.getElementById("sintetizador").appendChild(boton);
+      audioMap.set(audioSrc, { audio: nuevoAudio, boton: boton });
+
+      if (audioMap.size === stickers.length) {
+        audioMap.forEach(({ boton }) => {
+          boton.style.opacity = "1";
+          boton.style.filter = "none";
+          boton.style.pointerEvents = "auto";
+        });
+      }
+
+      mostrarZoom(this.src);
     });
-    });
+  });
+});
 
-   
-    setTimeout(() => {
-      document.getElementById("bienvenida").classList.add("visible");
-    }, 50);
-
-    
-    window.cerrarModal = function () {
-      document.getElementById("bienvenida").style.display = "none";
-
-      const imagenes = document.querySelectorAll('.galeria img');
-      imagenes.forEach((img, i) => {
-        setTimeout(() => {
-          img.style.transform = `translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px) rotate(${Math.random() * 10 - 5}deg) scale(1.05)`;
-          img.style.opacity = "0.5";
-        }, i * 120);
-
-        setTimeout(() => {
-          img.classList.remove('img-apilada');
-          img.classList.add('img-liberada');
-        }, i * 120 + 600);
-      });
-    };
-
-    
-    const imagenes = document.querySelectorAll('.galeria img');
-    imagenes.forEach(img => {
-      img.addEventListener('click', function () {
-        const lightbox = document.getElementById("lightbox");
-        const lightboxImg = document.getElementById("lightbox-img");
-        lightboxImg.src = this.src;
-        lightbox.style.display = "flex";
-        setTimeout(() => {
-          lightbox.classList.add("visible");
-        }, 10); 
-      });
-    });
-
-    document.getElementById("lightbox").addEventListener('click', function () {
-      this.classList.remove("visible");
-      setTimeout(() => {
-        this.style.display = "none";
-      }, 300);
-    });
+function mostrarZoom(src) {
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  lightboxImg.src = src;
+  lightbox.style.display = "flex";
+  setTimeout(() => lightbox.classList.add("visible"), 10);
+}
+document.getElementById("lightbox").addEventListener('click', function () {
+  this.classList.remove("visible");
+  setTimeout(() => { this.style.display = "none"; }, 300);
+});
+function cerrarModal() {
+  document.getElementById("bienvenida").style.display = "none";
+}
+setTimeout(() => {
+  document.getElementById("bienvenida").classList.add("visible");
+}, 50);
 </script>
 
 </body>
