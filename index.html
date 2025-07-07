@@ -17,8 +17,7 @@ h1 { background:#fff; color:#555; padding:20px 0; margin:0; text-align:center; }
 .espacio { position:relative; width:75vw; height:100vh; overflow:hidden; margin-left:25vw; }
 #sticker-area { position:relative; width:100%; height:100%; }
 svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; pointer-events:none; }
-.linea { opacity:0; transition:opacity .3s ease, stroke .3s ease; }
-.sticker { position:absolute; width:150px; cursor:pointer; transition:transform .5s ease, box-shadow .5s ease; z-index:3; }
+.linea { opacity:0; transition:opacity .3s ease, stroke .3s ease; stroke:#000; }
 
 .boton { width:40px; height:40px; border-radius:6px; border:none; opacity:.3; filter:grayscale(100%); cursor:pointer; box-shadow:0 0 4px #000; transition:all .3s; }
 .boton.reproduciendo { box-shadow:0 0 10px #fff; opacity:1; filter:none; }
@@ -150,9 +149,9 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
        style="fill:none;stroke:#a9a9a9;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="linea-18"
        inkscape:connector-curvature="0" />
-    </svg>
+</svg>
     <div id="sticker-area">
-      <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
+    <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
     <img class="sticker" src="https://i.imgur.com/SKi63lz.jpeg" data-audio="abuela cantando paloma negra.mp3">
     <img class="sticker" src="https://i.imgur.com/QzJlqaj.jpeg" data-audio="Cristo-viejo_-Tacubaya-copia.mp3">
     <img class="sticker" src="https://i.imgur.com/JkkDyQt.jpeg" data-audio="Estaba en las montañas porque yo era nieve.mp3">
@@ -181,15 +180,16 @@ window.addEventListener('DOMContentLoaded', () => {
   const stickers = document.querySelectorAll('.sticker');
   const sintetizador = document.getElementById('sintetizador');
   const audioMap = new Map();
+  let contador = 0;
+  const total = stickers.length;
   const colores = ['verde','amarillo','rojo','azul','cian','morado','naranja','verdeoscuro'];
   const colorHex = {'verde':'#0f0','amarillo':'#ff0','rojo':'#f00','azul':'#00f','cian':'#0ff','morado':'#800080','naranja':'orange','verdeoscuro':'#006400'};
 
   stickers.forEach((img, i) => {
     const anchoPct = (150 / document.querySelector('#sticker-area').offsetWidth) * 100;
     const x = Math.random() * (100 - anchoPct);
-    const y = Math.random() * 80;
     img.style.left = x + '%';
-    img.style.top = y + 'vh';
+    img.style.top = Math.random()*80+'vh';
     img.style.transform = 'rotate('+(Math.random()*30-15)+'deg)';
 
     img.addEventListener('click', () => {
@@ -202,10 +202,22 @@ window.addEventListener('DOMContentLoaded', () => {
         boton.className='boton'; boton.classList.add(color); boton.style.background=colorHex[color];
         img.classList.add('latido'); img.classList.add('borde-'+color);
         linea.style.stroke=colorHex[color]; linea.style.opacity=.4;
-        boton.onclick=()=>{ if(audio.paused){audio.play();img.classList.add('latido');img.classList.add('borde-'+color);linea.style.opacity=.4;boton.style.opacity="1";boton.style.filter="none";}
-        else{audio.pause();img.classList.remove('latido');img.classList.remove('borde-'+color);linea.style.opacity=0;boton.style.opacity="0.3";boton.style.filter="grayscale(100%)";}};
+
+        boton.onclick=()=>{
+          if(audio.paused){audio.play();img.classList.add('latido');img.classList.add('borde-'+color);linea.style.opacity=.4;boton.style.opacity="1";boton.style.filter="none";}
+          else{audio.pause();img.classList.remove('latido');img.classList.remove('borde-'+color);linea.style.opacity=0;boton.style.opacity="0.3";boton.style.filter="grayscale(100%)";}
+        };
+
         sintetizador.appendChild(boton);
-        audioMap.set(src,{audio,boton,linea}); mostrarZoom(img.src);
+        audioMap.set(src,{audio,boton,linea});
+        mostrarZoom(img.src);
+
+        contador++;
+        if (contador === total) {
+          document.querySelectorAll('.boton').forEach(b => {
+            b.style.opacity="1"; b.style.filter="none";
+          });
+        }
       } else { mostrarZoom(img.src); }
     });
   });
