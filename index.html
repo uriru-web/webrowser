@@ -16,11 +16,10 @@ h1 { background:#fff; color:#555; padding:20px 0; margin:0; text-align:center; }
 }
 .espacio { position:relative; width:75vw; height:100vh; overflow:hidden; margin-left:25vw; }
 #sticker-area { position:relative; width:100%; height:100%; }
-svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; pointer-events:none; }
+svg#mapa { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
 .linea { opacity:0; transition:opacity .3s ease, stroke .3s ease; stroke:#000; }
 
 .boton { width:40px; height:40px; border-radius:6px; border:none; opacity:.3; filter:grayscale(100%); cursor:pointer; box-shadow:0 0 4px #000; transition:all .3s; }
-.boton.reproduciendo { box-shadow:0 0 10px #fff; opacity:1; filter:none; }
 
 @keyframes latido {0%,100%{opacity:1;}50%{opacity:.5;}}
 .latido { animation:latido 1.2s infinite; }
@@ -44,6 +43,8 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
 #lightbox.visible { display:flex; }
 #lightbox img { max-width:90%; max-height:90%; border-radius:10px; transform:scale(0.8); opacity:0; transition:transform 0.8s cubic-bezier(0.4,0,0.2,1), opacity 0.8s; }
 #lightbox.visible img { transform:scale(1); opacity:1; }
+
+.sticker { position:absolute; width:150px !important; max-width:150px !important; height:auto !important; cursor:pointer; transition:transform .5s ease, box-shadow .5s ease; z-index:3; }
 </style>
 </head>
 <body>
@@ -149,9 +150,9 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
        style="fill:none;stroke:#a9a9a9;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="linea-18"
        inkscape:connector-curvature="0" />
-</svg>
+    </svg>
     <div id="sticker-area">
-    <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
+      <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
     <img class="sticker" src="https://i.imgur.com/SKi63lz.jpeg" data-audio="abuela cantando paloma negra.mp3">
     <img class="sticker" src="https://i.imgur.com/QzJlqaj.jpeg" data-audio="Cristo-viejo_-Tacubaya-copia.mp3">
     <img class="sticker" src="https://i.imgur.com/JkkDyQt.jpeg" data-audio="Estaba en las montañas porque yo era nieve.mp3">
@@ -173,7 +174,8 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
     </div>
   </div>
 </div>
-<div id="bienvenida" class="modal"><div class="modal-contenido"><h2>!</h2><p>perros en la ciudad se escuchan.</p><button onclick="cerrarModal()">sentir</button></div></div>
+<div id="bienvenida" class="modal"><div class="modal-contenido">
+  <h2>!</h2><p>perros en la ciudad se escuchan.</p><button onclick="cerrarModal()">sentir</button></div></div>
 <div id="lightbox"><img id="lightbox-img" src=""></div>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
@@ -204,8 +206,14 @@ window.addEventListener('DOMContentLoaded', () => {
         linea.style.stroke=colorHex[color]; linea.style.opacity=.4;
 
         boton.onclick=()=>{
-          if(audio.paused){audio.play();img.classList.add('latido');img.classList.add('borde-'+color);linea.style.opacity=.4;boton.style.opacity="1";boton.style.filter="none";}
-          else{audio.pause();img.classList.remove('latido');img.classList.remove('borde-'+color);linea.style.opacity=0;boton.style.opacity="0.3";boton.style.filter="grayscale(100%)";}
+          if(audio.paused){
+            audio.play(); img.classList.add('latido'); img.classList.add('borde-'+color);
+            linea.style.stroke=colorHex[color]; linea.style.opacity=.4;
+            boton.style.opacity="1"; boton.style.filter="none";
+          } else {
+            audio.pause(); img.classList.remove('latido'); img.classList.remove('borde-'+color);
+            linea.style.opacity=0; boton.style.opacity="0.3"; boton.style.filter="grayscale(100%)";
+          }
         };
 
         sintetizador.appendChild(boton);
