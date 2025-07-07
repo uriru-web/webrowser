@@ -185,9 +185,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const colorHex = {'verde':'#0f0','amarillo':'#ff0','rojo':'#f00','azul':'#00f','cian':'#0ff','morado':'#800080','naranja':'orange','verdeoscuro':'#006400'};
 
   stickers.forEach((img, i) => {
-    const anchoVW = (150 / window.innerWidth) * 75;
-    const x = Math.random() * (75 - anchoVW);
-    img.style.left = `calc(25vw + ${x}vw)`;
+    const anchoVW = (150 / window.innerWidth) * 100;
+    const x = Math.random() * (100 - anchoVW - 25) + 25;
+    img.style.left = x + 'vw';
     img.style.top = Math.random()*80+'vh';
     img.style.transform = 'rotate('+(Math.random()*30-15)+'deg)';
 
