@@ -18,8 +18,10 @@ h1 { background:#fff; color:#555; padding:20px 0; margin:0; text-align:center; }
 svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; pointer-events:none; }
 .linea { opacity:0; transition:opacity .3s ease, stroke .3s ease; }
 .sticker { position:absolute; width:150px; cursor:pointer; transition:transform .5s ease, box-shadow .5s ease; z-index:3; }
+
 .boton { width:40px; height:40px; border-radius:6px; border:none; opacity:.3; filter:grayscale(100%); cursor:pointer; box-shadow:0 0 4px #000; transition:all .3s; }
 .boton.reproduciendo { box-shadow:0 0 10px #fff; opacity:1; filter:none; }
+
 @keyframes latido {0%,100%{opacity:1;}50%{opacity:.5;}}
 .latido { animation:latido 1.2s infinite; }
 .borde-verde { box-shadow:0 0 15px #0f0; }
@@ -30,12 +32,14 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
 .borde-morado { box-shadow:0 0 15px #800080; }
 .borde-naranja { box-shadow:0 0 15px orange; }
 .borde-verdeoscuro { box-shadow:0 0 15px #006400; }
+
 .modal { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:6000; opacity:0; transition:opacity 1.5s ease; }
 .modal.visible { opacity:1; }
 .modal-contenido { background:#f1f1f1; color:#111; padding:25px 30px; border-radius:14px; max-width:400px; width:90%; text-align:center; animation:aparecer 1.2s ease; }
 @keyframes aparecer { from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
 .modal-contenido button { background:#333; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer; }
 .modal-contenido button:hover { background:#555; }
+
 #lightbox { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:7000; }
 #lightbox.visible { display:flex; }
 #lightbox img { max-width:90%; max-height:90%; border-radius:10px; transform:scale(0.8); opacity:0; transition:transform 0.8s cubic-bezier(0.4,0,0.2,1), opacity 0.8s; }
@@ -145,34 +149,32 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; opacity:0.2; poi
        style="fill:none;stroke:#a9a9a9;stroke-width:9;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="linea-18"
        inkscape:connector-curvature="0" />
-</svg>
     </svg>
     <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="camino a casa por la noche.mp3">
-  <img class="sticker" src="https://i.imgur.com/SKi63lz.jpeg" data-audio="abuela cantando paloma negra.mp3">
-  <img class="sticker" src="https://i.imgur.com/QzJlqaj.jpeg" data-audio="Cristo-viejo_-Tacubaya-copia.mp3">
-  <img class="sticker" src="https://i.imgur.com/JkkDyQt.jpeg" data-audio="Estaba en las montañas porque yo era nieve.mp3">
-  <img class="sticker" src="https://i.imgur.com/SQgZ7LR.jpeg" data-audio="Tramites-de-Transito-y-Consultoria-Ramirez.mp3">
-  <img class="sticker" src="https://i.imgur.com/zTNdemz.jpeg" data-audio="sonido7.mp3">
-  <img class="sticker" src="https://i.imgur.com/9IbMQfQ.jpeg" data-audio="Mercado de Jamaica.mp3">
-  <img class="sticker" src="https://i.imgur.com/pIG6EM2.jpeg" data-audio="sonido9.mp3">
-  <img class="sticker" src="https://i.imgur.com/HBbO7K2.jpeg" data-audio="De dónde vienen los tamborileros.mp3">
-  <img class="sticker" src="https://i.imgur.com/GZ3UsMm.jpeg" data-audio="afilador en Prolongacón Lerdo de Tejada.mp3">
-  <img class="sticker" src="https://i.imgur.com/JCk7rzJ.jpeg" data-audio="Stefano Strazzabosco.mp3">
-  <img class="sticker" src="https://i.imgur.com/gDBa6F4.jpeg" data-audio="Farmatodo y ladridos.mp3">
-  <img class="sticker" src="https://i.imgur.com/Gtemq4t.jpeg" data-audio="el camión más silencioso del mundo.mp3">
-  <img class="sticker" src="https://i.imgur.com/5ERHhi9.jpeg" data-audio="vendedor-de-fructosa.mp3">
-  <img class="sticker" src="https://i.imgur.com/F1hmhX9.jpeg" data-audio="blackbird en la estética de irma.mp3">
-  <img class="sticker" src="https://i.imgur.com/gSNmqsX.jpeg" data-audio="Restaurante El Cardenal.mp3">
-  <img class="sticker" src="https://i.imgur.com/98ICguU.jpeg" data-audio="trompetista-perdió-su-espacio.mp3">
-  <img class="sticker" src="https://i.imgur.com/rw6H1bM.png" data-audio="después de hablar de escultura con iván.mp3">
-  <img class="sticker" src="https://i.imgur.com/7lNy72j.jpeg" data-audio="así cantan las sirenas.mp3">
+    <img class="sticker" src="https://i.imgur.com/SKi63lz.jpeg" data-audio="abuela cantando paloma negra.mp3">
+    <img class="sticker" src="https://i.imgur.com/QzJlqaj.jpeg" data-audio="Cristo-viejo_-Tacubaya-copia.mp3">
+    <img class="sticker" src="https://i.imgur.com/JkkDyQt.jpeg" data-audio="Estaba en las montañas porque yo era nieve.mp3">
+    <img class="sticker" src="https://i.imgur.com/SQgZ7LR.jpeg" data-audio="Tramites-de-Transito-y-Consultoria-Ramirez.mp3">
+    <img class="sticker" src="https://i.imgur.com/zTNdemz.jpeg" data-audio="sonido7.mp3">
+    <img class="sticker" src="https://i.imgur.com/9IbMQfQ.jpeg" data-audio="Mercado de Jamaica.mp3">
+    <img class="sticker" src="https://i.imgur.com/pIG6EM2.jpeg" data-audio="sonido9.mp3">
+    <img class="sticker" src="https://i.imgur.com/HBbO7K2.jpeg" data-audio="De dónde vienen los tamborileros.mp3">
+    <img class="sticker" src="https://i.imgur.com/GZ3UsMm.jpeg" data-audio="afilador en Prolongacón Lerdo de Tejada.mp3">
+    <img class="sticker" src="https://i.imgur.com/JCk7rzJ.jpeg" data-audio="Stefano Strazzabosco.mp3">
+    <img class="sticker" src="https://i.imgur.com/gDBa6F4.jpeg" data-audio="Farmatodo y ladridos.mp3">
+    <img class="sticker" src="https://i.imgur.com/Gtemq4t.jpeg" data-audio="el camión más silencioso del mundo.mp3">
+    <img class="sticker" src="https://i.imgur.com/5ERHhi9.jpeg" data-audio="vendedor-de-fructosa.mp3">
+    <img class="sticker" src="https://i.imgur.com/F1hmhX9.jpeg" data-audio="blackbird en la estética de irma.mp3">
+    <img class="sticker" src="https://i.imgur.com/gSNmqsX.jpeg" data-audio="Restaurante El Cardenal.mp3">
+    <img class="sticker" src="https://i.imgur.com/98ICguU.jpeg" data-audio="trompetista-perdió-su-espacio.mp3">
+    <img class="sticker" src="https://i.imgur.com/rw6H1bM.png" data-audio="después de hablar de escultura con iván.mp3">
+    <img class="sticker" src="https://i.imgur.com/7lNy72j.jpeg" data-audio="así cantan las sirenas.mp3">
   </div>
 </div>
-<div id="bienvenida" class="modal">
-  <div class="modal-contenido">
-    <h2>!</h2><p>perros en la ciudad se escuchan.
-    </p><button onclick="cerrarModal()">sentir</button>
-  </div></div>
+<div id="bienvenida" class="modal"><div class="modal-contenido">
+  <h2>!</h2><p>perros en la ciudad se escuchan.
+  </p><button onclick="cerrarModal()">sentir</button>
+</div></div>
 <div id="lightbox"><img id="lightbox-img" src=""></div>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
@@ -183,50 +185,33 @@ window.addEventListener('DOMContentLoaded', () => {
   const colorHex = {'verde':'#0f0','amarillo':'#ff0','rojo':'#f00','azul':'#00f','cian':'#0ff','morado':'#800080','naranja':'orange','verdeoscuro':'#006400'};
 
   stickers.forEach((img, i) => {
-        const anchoVW = (150 / window.innerWidth) * 100;
-    const x = Math.random() * (100 - anchoVW - 25) + 25;
-    img.style.left = x + 'vw';
+    const anchoVW = (150 / window.innerWidth) * 75;
+    const x = Math.random() * (75 - anchoVW);
+    img.style.left = `calc(25vw + ${x}vw)`;
     img.style.top = Math.random()*80+'vh';
     img.style.transform = 'rotate('+(Math.random()*30-15)+'deg)';
 
     img.addEventListener('click', () => {
       const src = img.dataset.audio;
       const linea = document.getElementById('linea-' + i);
-
       if (!audioMap.has(src)) {
-        const audio = new Audio(src);
-        audio.loop=true; audio.volume=.6; audio.play();
-
+        const audio = new Audio(src); audio.loop=true; audio.volume=.6; audio.play();
         const boton = document.createElement('button');
-        boton.className='boton';
         const color = colores[Math.floor(Math.random()*colores.length)];
-        boton.classList.add(color); boton.style.background=colorHex[color];
-
+        boton.className='boton'; boton.classList.add(color); boton.style.background=colorHex[color];
         img.classList.add('latido'); img.classList.add('borde-'+color);
         linea.style.stroke=colorHex[color]; linea.style.opacity=.4;
-
-        boton.onclick=()=> {
-          if(audio.paused){ audio.play();
-            img.classList.add('latido'); img.classList.add('borde-'+color);
-            linea.style.opacity=.4; boton.style.opacity="1"; boton.style.filter="none";
-          } else { audio.pause();
-            img.classList.remove('latido'); img.classList.remove('borde-'+color);
-            linea.style.opacity=0; boton.style.opacity="0.3"; boton.style.filter="grayscale(100%)";
-          }
-        };
+        boton.onclick=()=>{ if(audio.paused){audio.play();img.classList.add('latido');img.classList.add('borde-'+color);linea.style.opacity=.4;boton.style.opacity="1";boton.style.filter="none";}
+        else{audio.pause();img.classList.remove('latido');img.classList.remove('borde-'+color);linea.style.opacity=0;boton.style.opacity="0.3";boton.style.filter="grayscale(100%)";}};
         sintetizador.appendChild(boton);
-        audioMap.set(src,{audio,boton,linea});
-        mostrarZoom(img.src);
+        audioMap.set(src,{audio,boton,linea}); mostrarZoom(img.src);
       } else { mostrarZoom(img.src); }
     });
   });
 });
 function cerrarModal(){document.getElementById("bienvenida").style.display="none";}
 setTimeout(()=>{document.getElementById("bienvenida").classList.add("visible");},50);
-function mostrarZoom(src){
-  const l=document.getElementById("lightbox"); const i=document.getElementById("lightbox-img");
-  i.src=src; l.classList.add("visible");
-}
+function mostrarZoom(src){const l=document.getElementById("lightbox"); const i=document.getElementById("lightbox-img");i.src=src;l.classList.add("visible");}
 document.getElementById("lightbox").addEventListener('click',()=>{document.getElementById("lightbox").classList.remove("visible");});
 </script>
 </body>
