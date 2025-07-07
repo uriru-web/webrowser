@@ -152,39 +152,49 @@
 
 
 
-  </style>
+  
+.contenedor-stickers {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
+}
+
+.sticker {
+  position: absolute;
+  width: 150px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+</style>
 </head>
 <body>
 
   <h1>EN LA CIUDAD</h1>
 
-  <div class="galeria">
-    <img class="img-apilada" src="https://i.imgur.com/UVPdcfb.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/SKi63lz.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/nrkBBfa.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/QzJlqaj.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/JkkDyQt.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/rJ4nfcT.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/SQgZ7LR.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/zTNdemz.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/9IbMQfQ.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/pIG6EM2.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/HBbO7K2.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/KjrtW9E.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/GZ3UsMm.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/JCk7rzJ.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/gDBa6F4.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/Gtemq4t.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/4FeMBGP.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/5ERHhi9.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/F1hmhX9.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/gSNmqsX.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/eTvOPa6.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/98ICguU.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/rw6H1bM.png" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/7lNy72j.jpeg" alt="">
-    <img class="img-apilada" src="https://i.imgur.com/fUbQVg1.jpeg" alt="">
-  </div>
+  <div class="contenedor-stickers">
+  <img class="sticker" src="https://i.imgur.com/UVPdcfb.jpeg" data-audio="audios/camino a casa por la noche.mp3">
+  <img class="sticker" src="https://i.imgur.com/SKi63lz.jpeg" data-audio="audios/abuela cantando paloma negra.mp3">
+  <img class="sticker" src="https://i.imgur.com/QzJlqaj.jpeg" data-audio="audios/Cristo-viejo_-Tacubaya-copia.mp3">
+  <img class="sticker" src="https://i.imgur.com/JkkDyQt.jpeg" data-audio="audios/Estaba en las montañas porque yo era nieve.mp3">
+  <img class="sticker" src="https://i.imgur.com/SQgZ7LR.jpeg" data-audio="audios/Tramites-de-Transito-y-Consultoria-Ramirez.mp3">
+  <img class="sticker" src="https://i.imgur.com/zTNdemz.jpeg" data-audio="audios/sonido7.mp3">
+  <img class="sticker" src="https://i.imgur.com/9IbMQfQ.jpeg" data-audio="audios/Mercado de Jamaica.mp3">
+  <img class="sticker" src="https://i.imgur.com/pIG6EM2.jpeg" data-audio="audios/sonido9.mp3">
+  <img class="sticker" src="https://i.imgur.com/HBbO7K2.jpeg" data-audio="audios/De dónde vienen los tamborileros.mp3">
+  <img class="sticker" src="https://i.imgur.com/GZ3UsMm.jpeg" data-audio="audios/afilador en Prolongacón Lerdo de Tejada.mp3">
+  <img class="sticker" src="https://i.imgur.com/JCk7rzJ.jpeg" data-audio="audios/Stefano Strazzabosco.mp3">
+  <img class="sticker" src="https://i.imgur.com/gDBa6F4.jpeg" data-audio="audios/Farmatodo y ladridos.mp3">
+  <img class="sticker" src="https://i.imgur.com/Gtemq4t.jpeg" data-audio="audios/el camión más silencioso del mundo.mp3">
+  <img class="sticker" src="https://i.imgur.com/5ERHhi9.jpeg" data-audio="audios/vendedor-de-fructosa.mp3">
+  <img class="sticker" src="https://i.imgur.com/F1hmhX9.jpeg" data-audio="audios/blackbird en la estética de irma.mp3">
+  <img class="sticker" src="https://i.imgur.com/gSNmqsX.jpeg" data-audio="audios/Restaurante El Cardenal.mp3">
+  <img class="sticker" src="https://i.imgur.com/98ICguU.jpeg" data-audio="audios/trompetista-perdió-su-espacio.mp3">
+  <img class="sticker" src="https://i.imgur.com/rw6H1bM.png" data-audio="audios/después de hablar de escultura con iván.mp3">
+  <img class="sticker" src="https://i.imgur.com/7lNy72j.jpeg" data-audio="audios/así cantan las sirenas.mp3">
+</div>
 
   <div id="bienvenida" class="modal">
     <div class="modal-contenido">
@@ -203,6 +213,42 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {
+    const stickers = document.querySelectorAll('.sticker');
+    const contenedor = document.querySelector('.contenedor-stickers');
+    const ancho = contenedor.clientWidth;
+    const alto = contenedor.clientHeight;
+
+    stickers.forEach((img, i) => {
+      const x = Math.random() * (ancho * 0.75 - 160) + (ancho * 0.25);
+      const y = Math.random() * (alto - 160);
+      const r = Math.random() * 30 - 15;
+
+      img.style.left = `${x}px`;
+      img.style.top = `${y}px`;
+      img.style.transform = `rotate(${r}deg)`;
+      img.style.zIndex = 10 + i;
+    });
+
+    let currentAudios = [];
+    stickers.forEach(img => {
+      img.addEventListener('click', function () {
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        lightboxImg.src = this.src;
+        lightbox.style.display = "flex";
+        setTimeout(() => lightbox.classList.add("visible"), 10);
+
+        const audioSrc = this.getAttribute("data-audio");
+        if (audioSrc) {
+          const nuevoAudio = new Audio(audioSrc);
+          nuevoAudio.loop = true;
+          nuevoAudio.volume = 0.6;
+          nuevoAudio.play().catch(e => console.log("Audio bloqueado"));
+          currentAudios.push(nuevoAudio);
+        }
+      });
+    });
+
    
     setTimeout(() => {
       document.getElementById("bienvenida").classList.add("visible");
