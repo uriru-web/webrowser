@@ -49,12 +49,46 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; pointer-events:n
   opacity: 0 !important;
   stroke: #000 !important;
 }
+#ig-container {
+  position: fixed;
+  bottom: 400px;
+  left: 12.5%;
+  transform: translateX(-50%);
+  text-align: center;
+  opacity: 0;            
+  pointer-events: none;   
+  transition: opacity 0.8s ease;
+  z-index: 5001;
+}
+
+#ig-container.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#ig-container img {
+  width: 75px;
+  height: 75px;
+}
+
+.ig-text {
+  font-size: 20px;
+  margin-top: 4px;
+  color: white;
+}
 
 </style>
 </head>
 <body>
 <div class="contenedor">
   <div id="sintetizador" class="sintetizador"></div>
+  <div id="ig-container">
+  <a href="https://instagram.com/__vil___" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+  </a>
+  <div class="ig-text">Polifonía digital<br>del último fanzine :)</div>
+</div>
+
   <div class="espacio">
     <svg id="mapa" viewBox="0 0 1022 1250" xmlns="http://www.w3.org/2000/svg">
 <path
@@ -229,6 +263,8 @@ window.addEventListener('DOMContentLoaded', () => {
           document.querySelectorAll('.boton').forEach(b => {
             b.style.opacity="1"; b.style.filter="none";
           });
+          document.getElementById('ig-container').classList.add('visible');
+
         }
       } else { mostrarZoom(img.src); }
     });
