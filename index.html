@@ -49,11 +49,23 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; pointer-events:n
   stroke: #000 !important;
 }
 #ig-box {
-  width: 60px; height: 60px; margin:10px auto;
-  opacity:0; transition:opacity .5s ease;
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .5s ease;
+  margin-top: 10px;
 }
 #ig-box.visible { opacity:1; }
 .ig-hidden { opacity:0; pointer-events:none; }
+.ig-text {
+  color: white;
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+}
 
 </style>
 </head>
@@ -63,7 +75,9 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; pointer-events:n
   <a href="https://instagram.com/__vil___" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:50px;height:50px;">
   </a>
+  <div class="ig-text">Esta polifonía digital pertenece a la experiencia del último fanzine publicado en mis redes :)</div>
 </div>
+
   <div id="sintetizador" class="sintetizador"></div>
   <div class="espacio">
     <svg id="mapa" viewBox="0 0 1022 1250" xmlns="http://www.w3.org/2000/svg">
