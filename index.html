@@ -49,12 +49,23 @@ svg#mapa { position:absolute; inset:0; width:100%; height:100%; pointer-events:n
   opacity: 0 !important;
   stroke: #000 !important;
 }
+#ig-box {
+  width: 60px; height: 60px; margin:10px auto;
+  opacity:0; transition:opacity .5s ease;
+}
+#ig-box.visible { opacity:1; }
+.ig-hidden { opacity:0; pointer-events:none; }
 
 </style>
 </head>
 <body>
 <h1>EN LA CIUDAD</h1>
 <div class="contenedor">
+  <div id="ig-box" class="ig-hidden">
+  <a href="https://instagram.com/__vil___" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:50px;height:50px;">
+  </a>
+</div>
   <div id="sintetizador" class="sintetizador"></div>
   <div class="espacio">
     <svg id="mapa" viewBox="0 0 1022 1250" xmlns="http://www.w3.org/2000/svg">
@@ -235,6 +246,14 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+  if (contador === total) {
+    document.querySelectorAll('.boton').forEach(b => {
+        b.style.opacity="1"; b.style.filter="none";
+    });
+    document.getElementById('ig-box').classList.remove('ig-hidden');
+    document.getElementById('ig-box').classList.add('visible');
+}
+
 function cerrarModal(){document.getElementById("bienvenida").style.display="none";}
 setTimeout(()=>{document.getElementById("bienvenida").classList.add("visible");},50);
 function mostrarZoom(src){const l=document.getElementById("lightbox"); const i=document.getElementById("lightbox-img");i.src=src;l.classList.add("visible");}
