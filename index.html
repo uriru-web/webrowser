@@ -238,6 +238,8 @@ window.addEventListener('DOMContentLoaded', () => {
         if (contador === total) {
           document.querySelectorAll('.boton').forEach(b => {
             b.style.opacity="1"; b.style.filter="none";
+            document.getElementById('ig-box').classList.remove('ig-hidden');
+            document.getElementById('ig-box').classList.add('visible');
           });
         }
       } else { mostrarZoom(img.src); }
